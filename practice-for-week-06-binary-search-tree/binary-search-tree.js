@@ -43,6 +43,21 @@ class BinarySearchTree {
 
   search(val) {
     // Your code here
+    let currentNode = this.root;
+
+    while(currentNode) {
+      if (currentNode.val === val) {
+        return true;
+      }
+
+      if (val < currentNode.val) {
+        currentNode = currentNode.left;
+      } else if (val > currentNode.val) {
+        currentNode = currentNode.right;
+      }
+    }
+
+    return false;
   }
 
 
@@ -75,11 +90,11 @@ const bst = new BinarySearchTree();
 bst.insert(4);
 bst.insert(2);
 bst.insert(6);
-debugger
 bst.insert(1);
 bst.insert(3);
 bst.insert(5);
 bst.insert(7);
-console.log(bst);
+debugger
+console.log(bst.search(3));
 
 module.exports = { BinarySearchTree, TreeNode };
