@@ -130,12 +130,18 @@ class BinarySearchTree {
     // while the stack is not empty
     while (stack.length > 0) {
       // print and remove first node in stack
-      const node = stack.shift
+      const node = stack.pop();
+      console.log(node.val);
 
-      // if the node has a left node
-        // push the left node on the back of the stack
-      // if the node has a right node
-        // push the right node on the back of the stack
+      if(node.left) {
+        stack.push(node.left)
+      }
+
+      if(node.right) {
+        stack.push(node.right);
+      }
+
+
     }
   }
 }
@@ -143,13 +149,15 @@ class BinarySearchTree {
 const bst = new BinarySearchTree();
 bst.insert(4);
 bst.insert(2);
+// bst.insert(6);
 bst.insert(6);
-bst.insert(1);
 bst.insert(3);
+bst.insert(1);
 bst.insert(5);
 bst.insert(7);
 debugger
+bst.depthFirstTraversal();
 // console.log(
-// bst.breadthFirstTraversal());
+// bst.depthFirstT());
 
 module.exports = { BinarySearchTree, TreeNode };
