@@ -102,7 +102,30 @@ function getHeight (rootNode) {
 }
 
 function balancedTree (rootNode) {
-  // Your code here
+  //get heights of left and right branches
+  const leftHeight = getHeight(rootNode.left);
+  const rightHeight = getHeight(rootNode.right);
+
+  //if the heights are off by more than 1, tree is unbalanced
+  const differenceInHeight = Math.abs(rightHeight - leftHeight);
+  if (differenceInHeight > 1) {
+    return false;
+  }
+
+  //base case: if both heights are -1, you are at end of the branch. Return true
+  if (leftHeight === rightHeight && leftHeight === -1) {
+    return true;
+  }
+
+  //if left or right branch is -1 height, check the remaining branch for balance.
+  if (leftHeight === -1) {
+    return balancedTree(rootNode.right)
+  } else if (rightHeight === -1) {
+    return balancedTree(rootNode.left)
+  }
+
+  //otherwise, check if both sub branches are balanced
+  return balancedTree(rootNode.left) && balancedTree(rootNode.right);
 }
 
 function countNodes (rootNode) {

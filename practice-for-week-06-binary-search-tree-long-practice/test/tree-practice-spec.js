@@ -154,7 +154,6 @@ describe('Binary Tree Practice', () => {
   describe('findMinBST', () => {
 
     it('should return the min value in a Binary Search Tree', function() {
-      debugger
       expect(findMinBST(bstRoot)).to.equal(1);
       expect(findMinBST(bstRootUnbalanced)).to.equal(1);
       expect(findMinBST(bstRootBig)).to.equal(1)
