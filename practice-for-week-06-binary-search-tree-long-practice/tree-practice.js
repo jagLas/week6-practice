@@ -106,7 +106,24 @@ function balancedTree (rootNode) {
 }
 
 function countNodes (rootNode) {
-  // Your code here
+    //return 0 if node does not exist
+    if (!rootNode) {
+      return 0;
+    }
+  
+    //return 1 if node has no children
+    if (!rootNode.left && !rootNode.right) {
+      return 1;
+    }
+  
+    //find node counts of left and right branch
+    const leftNodeCount = countNodes(rootNode.left);
+    const rightNodeCount = countNodes(rootNode.right);
+  
+    //add 1 to current NodeCount and add the left and right counts
+    let currentNodeCount = 1 + leftNodeCount + rightNodeCount;
+  
+    return currentNodeCount;
 }
 
 function getParentNode (rootNode, target) {
