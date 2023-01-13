@@ -150,7 +150,28 @@ function countNodes (rootNode) {
 }
 
 function getParentNode (rootNode, target) {
-  // Your code here
+  debugger
+  //return undefined if tree is empty
+  if (!rootNode) {
+    return undefined;
+  }
+
+  //return null if currentNode 
+  if (rootNode.val === target) {
+    return null;
+  }
+
+  const leftEval = getParentNode(rootNode.left, target);
+  const rightEval = getParentNode(rootNode.right, target)
+
+  //if either of the children point to the value, return the currentNode's value
+  if (leftEval === null || rightEval === null) {
+    return rootNode;
+  }
+
+  //otherwise return result of checking left and right branch
+  return leftEval || rightEval;
+
 }
 
 function inOrderPredecessor (rootNode, target) {
