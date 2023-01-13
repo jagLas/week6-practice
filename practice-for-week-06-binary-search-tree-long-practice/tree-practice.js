@@ -150,7 +150,6 @@ function countNodes (rootNode) {
 }
 
 function getParentNode (rootNode, target) {
-  debugger
   //return undefined if tree is empty
   if (!rootNode) {
     return undefined;
@@ -175,7 +174,73 @@ function getParentNode (rootNode, target) {
 }
 
 function inOrderPredecessor (rootNode, target) {
-  // Your code here
+  
+  let parentNode = getParentNode(rootNode, target);
+  let targetNode;
+
+  //finds the target node based off of the parentNode
+  if (parentNode === null) {
+    targetNode = rootNode;
+  } else if (parentNode.left === null) {
+    targetNode = parentNode.right;
+  } else if (parentNode.left.val === target) {
+    targetNode = parentNode.left;
+  } else {
+    targetNode = parentNode.right;
+  }
+
+  //if left branch of target is null, checks if it is first in order. If not, returns parent
+  if (targetNode.left === null) {
+
+    //checks if it exists on the left most branch
+    let testNode = rootNode;
+    while (testNode.left) {
+      if (testNode.left === targetNode) {
+        return null;
+      }
+      testNode = testNode.left;
+    }
+    
+    //returns null if parent node is null, otherwise, return's it's value.
+    if(parentNode === null) {
+      return null;
+    }
+
+    return parentNode.val;
+  }
+
+  //otherwise, traverses left, then iteratively traverse right until null is found
+  targetNode = targetNode.left;
+  while (targetNode.right) {
+    targetNode = targetNode.right;
+  }
+
+  return targetNode.val;
+}
+
+function searchBT(rootNode, target) {
+  //if rootNode is null, target wasn't found, return null
+  if (rootNode === null) {
+    return undefined;
+  }
+
+  if (rootNode.val === target) {
+    return rootNode;
+  }
+
+  //check left and right branch for target
+  const leftSearch = searchBT(rootNode.left, target);
+  const rightSearch = searchBT(rootNode.right, target);
+
+  //if found in either, return that node
+  if (leftSearch) {
+    return leftSearch;
+  } else if (rightSearch) {
+    return rightSearch;
+  }
+
+  //otherwise
+  return undefined;
 }
 
 function deleteNodeBST(rootNode, target) {
@@ -201,6 +266,16 @@ function deleteNodeBST(rootNode, target) {
   //   Make the parent point to the child
 
 }
+
+bstRoot = new TreeNode(4);
+bstRoot.left = new TreeNode(2);
+bstRoot.left.left = new TreeNode(1);
+bstRoot.left.right = new TreeNode(3);
+bstRoot.right = new TreeNode(6);
+bstRoot.right.left = new TreeNode(5);
+bstRoot.right.right = new TreeNode(7);
+
+console.log(searchBT(bstRoot, 8));
 
 module.exports = {
     findMinBST,

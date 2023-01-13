@@ -366,6 +366,7 @@ describe('Binary Tree Practice', () => {
     });
 
     it('returns null if starting node is the first in-order node', function() {
+      debugger
       expect(inOrderPredecessor(bstRoot, 1)).to.equal(null);
       expect(inOrderPredecessor(bstRootUnbalanced, 1)).to.equal(null);
       expect(inOrderPredecessor(bstRootBig, 1)).to.equal(null);
