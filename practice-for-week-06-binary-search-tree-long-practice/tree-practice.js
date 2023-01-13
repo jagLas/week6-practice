@@ -18,6 +18,15 @@ function findMinBST (rootNode) {
 
 function findMaxBST (rootNode) {
   // Your code here
+  if (rootNode === null) {
+    return;
+  }
+
+  if (rootNode.right === null) {
+    return rootNode.val;
+  }
+
+  return findMaxBST(rootNode.right);
 }
 
 function findMinBT (rootNode) {
