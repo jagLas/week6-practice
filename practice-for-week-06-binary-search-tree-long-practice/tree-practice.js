@@ -30,15 +30,75 @@ function findMaxBST (rootNode) {
 }
 
 function findMinBT (rootNode) {
-  // Your code here
+  //return undefined if node is null
+  if (!rootNode) {
+    return;
+  }
+
+  let currentMin = rootNode.val;
+
+  //find min values for left and right branches
+  let leftMin = findMinBT(rootNode.left);
+  let rightMin = findMinBT(rootNode.right);
+
+  if (leftMin < currentMin && leftMin !== undefined) {
+    currentMin = leftMin;
+  }
+
+  if (rightMin < currentMin && rightMin !== undefined) {
+    currentMin = rightMin;
+  }
+
+  return currentMin;
 }
 
 function findMaxBT (rootNode) {
-  // Your code here
+  //return undefined if node is null
+  if (!rootNode) {
+    return;
+  }
+
+  let currentMax = rootNode.val;
+
+  //find min values for left and right branches
+  let leftMax = findMaxBT(rootNode.left);
+  let rightMax = findMaxBT(rootNode.right);
+
+  if (leftMax > currentMax && leftMax !== undefined) {
+    currentMax = leftMax;
+  }
+
+  if (rightMax > currentMax && rightMax !== undefined) {
+    currentMax = rightMax;
+  }
+
+  return currentMax;
 }
 
 function getHeight (rootNode) {
-  // Your code here
+  //return -1 if node does not exist
+  if (!rootNode) {
+    return -1;
+  }
+
+  //return 0 if node has no children
+  if (!rootNode.left && !rootNode.right) {
+    return 0;
+  }
+
+  //find heights of left and right branch
+  const leftHeight = getHeight(rootNode.left);
+  const rightHeight = getHeight(rootNode.right);
+
+  //add 1 to current height and add the highest of left and right
+  let currentHeight = 1;
+  if (leftHeight > rightHeight) {
+    currentHeight += leftHeight;
+  } else {
+    currentHeight += rightHeight;
+  }
+
+  return currentHeight;
 }
 
 function balancedTree (rootNode) {
