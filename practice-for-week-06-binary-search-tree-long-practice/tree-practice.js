@@ -244,17 +244,34 @@ function searchBT(rootNode, target) {
 }
 
 function deleteNodeBST(rootNode, target) {
+  debugger
   // Do a traversal to find the node. Keep track of the parent
+  let targetNode = searchBT(rootNode, target);
+  let targetParent = getParentNode(rootNode, target);
 
   // Undefined if the target cannot be found
+  if (targetNode === undefined) {
+    return undefined;
+  }
 
   // Set target based on parent
 
   // Case 0: Zero children and no parent:
+  if (!targetNode.left && !targetNode.left && !targetParent) {
+    return null;
+  }
   //   return null
 
   // Case 1: Zero children:
-  //   Set the parent that points to it to null
+  if (!targetNode.left && !targetNode.right) {
+    //   Set the parent that points to it to null
+    if (targetParent.left === targetNode) {
+      targetParent.left = null;
+    } else {
+      targetParent.right = null;
+    }
+    
+  }
 
   // Case 2: Two children:
   //  Set the value to its in-order predecessor, then delete the predecessor
