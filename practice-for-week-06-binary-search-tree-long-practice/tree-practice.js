@@ -244,7 +244,6 @@ function searchBT(rootNode, target) {
 }
 
 function deleteNodeBST(rootNode, target) {
-  debugger
   // Do a traversal to find the node. Keep track of the parent
   let targetNode = searchBT(rootNode, target);
   let targetParent = getParentNode(rootNode, target);
@@ -271,6 +270,29 @@ function deleteNodeBST(rootNode, target) {
       targetParent.right = null;
     }
     
+    return targetNode;
+  }
+
+  // Case 3: One child:
+  //   Make the parent point to the child
+  if (!targetNode.left && targetNode.right) {
+    if (targetParent.left === targetNode) {
+      targetParent.left = targetNode.right;
+    } else {
+      targetParent.right = targetNode.right;
+    }
+    
+    return targetNode;
+  }
+
+  if (targetNode.left && !targetNode.right) {
+    if (targetParent.left === targetNode) {
+      targetParent.left = targetNode.left;
+    } else {
+      targetParent.right = targetNode.left;
+    }
+    
+    return targetNode;
   }
 
   // Case 2: Two children:
@@ -279,20 +301,14 @@ function deleteNodeBST(rootNode, target) {
   //  or the right most child on its left side.
   //  Then delete the child that it was replaced with.
 
-  // Case 3: One child:
-  //   Make the parent point to the child
+  //finds the inOrderPredessorValue and stores in temporarily
+  let inOrderPredecessorValue = inOrderPredecessor(rootNode, target);
+  //deletes the node that the predecessor came from
+  deleteNodeBST(rootNode, inOrderPredecessorValue);
+  //sets the value on the target node to be that predecessor value;
+  targetNode.val = inOrderPredecessorValue;
 
 }
-
-bstRoot = new TreeNode(4);
-bstRoot.left = new TreeNode(2);
-bstRoot.left.left = new TreeNode(1);
-bstRoot.left.right = new TreeNode(3);
-bstRoot.right = new TreeNode(6);
-bstRoot.right.left = new TreeNode(5);
-bstRoot.right.right = new TreeNode(7);
-
-console.log(searchBT(bstRoot, 8));
 
 module.exports = {
     findMinBST,
