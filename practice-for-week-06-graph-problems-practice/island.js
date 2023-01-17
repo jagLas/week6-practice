@@ -39,27 +39,38 @@ console.log(getNeighbors(1, 1, matrix))
 function islandSize(row, col, graph) {
 
   // Create a visited set to store visited nodes
+  const visited = new Set();
 
   // Create a stack, put the starting node in the stack
+  const stack = [[row, col]];
 
   // Put the stringified starting node in visited
+  visited.add([row, col].toString());
 
   // Initialize size to 0
+  let size = 0;
 
   // While the stack is not empty,
-
+  while (stack.length) {
     // Pop the first node
+    const currentNode = stack.pop();
 
     // DO THE THING (increment size by 1)
+    size++;
 
-    // Then push all the UNVISITED neighbors on top of the stack
-    // and mark them as visited
+    // Then push all the UNVISITED neighbors on top of the stack and mark them as visited
+    const neighbors = getNeighbors(currentNode[0], currentNode[1], graph);
+    neighbors.forEach(neighbor => {
+      if (!visited.has(neighbor.toString())){
+        stack.push(neighbor);
+        visited.add(neighbor.toString());
+      }
+    })
     // HINT: This is what your helper function `getNeighbors` is for
     // HINT: Remember, you're storing your visited nodes as strings!
+  }
 
-  // return size
-
-  // Your code here
+  return size;
 }
 
 module.exports = [getNeighbors, islandSize];
