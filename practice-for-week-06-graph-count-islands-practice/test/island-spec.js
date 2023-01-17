@@ -64,7 +64,6 @@ describe('getNeighbors', () => {
 
         expect(getNeighbors(1, 1, matrix1)).to.have.deep.members([[0, 0], 
             [0, 1], [0, 2], [1,2], [2,1], [2,2]])
-
     });
 
     it('can return neighbors from the corners', () => {

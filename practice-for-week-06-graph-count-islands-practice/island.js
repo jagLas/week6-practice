@@ -1,16 +1,32 @@
 function getNeighbors(row, col, matrix) {
-  
-  // Check top
-  // Check top right
-  // Check right
-  // Check bottom right
-  // Check bottom
-  // Check bottom left
-  // Check left
-  // Check top left
-  // Return neighbors
-  
-  // Your code here
+  //define properties of matrix and neighbors
+  let height = matrix.length;
+  let width = matrix[0].length;
+  const neighbors = [];
+
+  //offset the check to start up 1 left 1
+  row--;
+  col--;
+
+  //iterate a square of three
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      //make sure the node checked doesn't exceed the bounds of the matrix
+      if (col + j >= 0 && row + i >= 0 && col + j < width && row + i < height) {
+        //check the value at the node
+        const val = matrix[row + i][col + j];
+        //if the value is one and not the center node
+        if (val === 1 && !(j === 1 && i === 1)) {
+          //push to neighbors
+          neighbors.push([row + i, col + j]);
+        }
+      }
+
+    }
+  }
+
+  //return neighbors;
+  return neighbors;
 }
 
 function countIslands(matrix) {
