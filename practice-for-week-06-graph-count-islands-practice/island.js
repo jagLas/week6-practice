@@ -32,23 +32,47 @@ function getNeighbors(row, col, matrix) {
 function countIslands(matrix) {
   
   // Create a visited set to store visited nodes
+  const visited = new Set();
   // Initialize count to 0
+  let count = 0;
   // Iterate through all indices in matrix
-    // If an index contains a 1 and has not been visited, 
-    // increment island count and start traversing neighbors
-      // DO THE THING (increment island count by 1)
-      // Initialize a stack with current index
-      // Add stringified version of current index to the visited set
-      // While stack contains elements
-        // Pop element from stack
-        // Get valid neighbors of current element
-        // Iterate over neigbors
-          // If neighbor has not been visited
-            // Add neighbor to stack
-            // Mark neighbor as visited
+  matrix.forEach((subArray, row) => {
+    subArray.forEach((value, col) => {
+      // If an index contains a 1 and has not been visited, 
+      if (value === 1 && !visited.has([row, col].toString())) {
+        // increment island count and start traversing neighbors
+        // DO THE THING (increment island count by 1)
+        count++;
+
+        // Initialize a stack with current index  
+        const stack = [[row, col]];
+        // Add stringified version of current index to the visited set
+        visited.add([row, col].toString());
+        // While stack contains elements
+        while (stack.length) {
+          // Pop element from stack
+          const currentNode = stack.pop();
+          // Get valid neighbors of current element
+          const neigbors = getNeighbors(currentNode[0], currentNode[1], matrix);
+          // Iterate over neigbors
+          neigbors.forEach(neighbor => {
+            // If neighbor has not been visited
+            if (!visited.has(neighbor.toString())) {
+              // Add neighbor to stack
+              stack.push(neighbor);
+              // Mark neighbor as visited
+              visited.add(neighbor.toString())
+            }  
+          })
+        }
+      }
+    })
+
+  })
+
   // Return island count
-  
-  // Your code here
+  return count;
+
 }
 
 // Uncomment the lines below for local testing
