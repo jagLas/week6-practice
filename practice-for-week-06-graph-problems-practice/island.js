@@ -1,17 +1,39 @@
 function getNeighbors(row, col, graph) {
+  let i = row;
+  let j = col;
+  let height = graph.length;
+  let width = graph[0].length;
 
-  // Check top
+  const neighbors = [];
+  // Up
+  if (i > 0 && graph[i - 1][j] === 1){
+      neighbors.push([i - 1, j]);
+  }
 
-  // Check bottom
+  // Down
+  if (i < height - 1 && graph[i + 1][j] === 1) {
+      neighbors.push([i + 1, j]);
+  }
+  // Left
+  if (j > 0 && graph[i][j - 1] === 1) {
+      neighbors.push([i, j - 1]);
+  }
 
-  // Check left
+  // Right
 
-  // Check right
+  if (j < width - 1 && graph[i][j + 1] === 1) {
+      neighbors.push([i, j + 1]);
+  }
 
-  // Return neighbors
-
-  // Your code here
+  return neighbors;
 }
+
+matrix = [
+  [1,1,1,0,0],
+  [0,1,1,0,1],
+  [0,1,1,0,1],
+]
+console.log(getNeighbors(1, 1, matrix))
 
 
 function islandSize(row, col, graph) {
