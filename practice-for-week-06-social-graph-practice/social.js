@@ -47,7 +47,40 @@ class SocialNetwork {
   }
 
   getRecommendedFollows(userID, degrees) {
-    // Your code here
+    //set up for the breadth first traversal
+    const queue = [];
+    const visited = new Set([userID]);
+    queue.push([userID]);
+    const recommendedFollows = [];
+
+    //while there is stuff in the queue
+    while(queue.length) {
+      //pull off first path on queue and identify follows of the last in path
+      const currentPath = queue.shift();
+      const currentID = currentPath[currentPath.length - 1];
+      const nextFollows = this.getFollows(currentID);
+
+      //if the path has not met degrees of separation
+      if (currentPath.length - 2 < degrees) {
+        //go through each of the next follows and
+        nextFollows.forEach(follow => {
+          //if it has not been visited
+          if(!visited.has(follow)){
+            //add it to the path and push to the queue
+            queue.push(currentPath.concat(follow));
+            //push to recommended follows if it is not original user or it's immediate follows
+            if(currentPath.length > 1) {
+              recommendedFollows.push(follow);
+            }
+            
+            //add the user to visited
+            visited.add(follow);
+          }
+        })
+      }
+    }
+
+    return recommendedFollows;
   }
 }
 
